@@ -32,6 +32,7 @@ THEN the password is either displayed in an alert or written to the page
 
 ## Screen Shot
 
-![password generator demo](./Assets/03-javascript-homework-demo.png)
+![password generator screen shot](./Assets/03-javascript-homework-demo.png)
 
 ## Link to Deployed Application
+[password generator](https://zhuxiaoyu1019.github.io/password-generator/)

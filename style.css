@@ -30,6 +30,24 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+form {
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 0.75rem;
+  column-gap: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-length-container {
+  display: flex;
+  align-items: center;
+}
+
+#password-length-num {
+  width: 3rem;
+}
+
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;

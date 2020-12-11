@@ -10,43 +10,41 @@ const NUM_CODES = arrChar(48, 57);
 const LOWERCASE_CODES = arrChar(97, 122);
 const UPPERCASE_CODES = arrChar(65, 90);
 
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
+//set password length range and number input synchronously
+var passwordLengthRange = id("password-length");
+var passwordLengthNum = id("password-length-num");
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  console.log(password);
-  var passwordText = document.querySelector("#password");
+passwordLengthRange.addEventListener("input", syncPasswordLength);
+passwordLengthNum.addEventListener("input", syncPasswordLength);
 
-  passwordText.value = password;
+function syncPasswordLength(e) {
+  var value = e.target.value;
+  passwordLengthRange.value = value;
+  passwordLengthNum.value = value;
 }
 
-function generatePassword() {
-  //user input
-  var passwordLength = parseInt(prompt("How many characters would you like your password to contain?"));
-  var hasSymbols;
-  var hasNum;
-  var hasLowerCase;
-  var hasUpperCase;
+//user input
+var symbols = id("has-symbol");
+var num = id("has-num");
+var lowercase = id("has-lowercase");
+var uppercase = id("has-uppercase");
 
-  //password length check
-  if (Number.isInteger(passwordLength)) {
+//Add event listener to generate button and prevent refreshing the page 
+var generateBtn = qs("#generate");
+generateBtn.addEventListener("click", e => {
+  e.preventDefault();
+  var passwordLength = passwordLengthNum.value;
+  var hasSymbols = symbols.checked;
+  var hasNum = num.checked;
+  var hasLowerCase = lowercase.checked;
+  var hasUpperCase = uppercase.checked;
+  var password = generatePassword(passwordLength, hasSymbols, hasNum, hasLowerCase, hasUpperCase);
+  var passwordText = qs("#password");
 
-    //password length at least 8 characters and no more than 128 characters
-    if (passwordLength >= 8 && passwordLength <= 128) {
-      hasSymbols = confirm("Click 'OK' to confirm including special characters.");
-      hasNum = confirm("Click 'OK' to confirm including numeric characters.");
-      hasLowerCase = confirm("Click 'OK' to confirm including lowercase characters.");
-      hasUpperCase = confirm("Click 'OK' to confirm including uppercase characters.")
-    } else if (passwordLength < 8) {
-      alert("Password length must be at least 8 characters");
-    } else {
-      alert("Password length must less than 129 characters");
-    }
-  } else {
-    alert("Password length must be provided as a number");
-  }
+  passwordText.value = password;
+});
+
+function generatePassword(passwordLength, hasSymbols, hasNum, hasLowerCase, hasUpperCase) {
 
   //prep character code array based on user's criteria
   var arrCodes = [];
@@ -81,5 +79,27 @@ function arrChar(low, high) {
   return arr;
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+
+/** ------------------------------ Helper Functions  ------------------------------ */
+  /**
+   * Note: You may use these in your code, but remember that your code should not have
+   * unused functions. Remove this comment in your own code.
+   */
+
+  /**
+   * Returns the element that has the ID attribute with the specified value.
+   * @param {string} idName - element ID
+   * @returns {object} DOM object associated with id.
+   */
+  function id(idName) {
+    return document.getElementById(idName);
+  }
+
+  /**
+   * Returns the first element that matches the given CSS selector.
+   * @param {string} selector - CSS query selector.
+   * @returns {object} The first DOM object matching the query.
+   */
+  function qs(selector) {
+    return document.querySelector(selector);
+  }

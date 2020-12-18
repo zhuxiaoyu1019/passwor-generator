@@ -10,24 +10,22 @@ const NUM_CODES = arrChar(48, 57);
 const LOWERCASE_CODES = arrChar(97, 122);
 const UPPERCASE_CODES = arrChar(65, 90);
 
-//set password length range and number input synchronously
-var passwordLengthRange = id("password-length");
-var passwordLengthNum = id("password-length-num");
-
-passwordLengthRange.addEventListener("input", syncPasswordLength);
-passwordLengthNum.addEventListener("input", syncPasswordLength);
-
-function syncPasswordLength(e) {
-  var value = e.target.value;
-  passwordLengthRange.value = value;
-  passwordLengthNum.value = value;
-}
-
 //user input
 var symbols = id("has-symbol");
 var num = id("has-num");
 var lowercase = id("has-lowercase");
 var uppercase = id("has-uppercase");
+//set password length range and number input synchronously
+var passwordLengthRange = id("password-length");
+var passwordLengthNum = id("password-length-num");
+passwordLengthRange.addEventListener("input", passwordLength);
+passwordLengthNum.addEventListener("input", passwordLength);
+
+function passwordLength(e) {
+  var value = e.target.value;
+  passwordLengthRange.value = value;
+  passwordLengthNum.value = value;
+}
 
 //Add event listener to generate button and prevent refreshing the page 
 var generateBtn = qs("#generate");
@@ -74,9 +72,9 @@ function generatePassword(passwordLength, hasSymbols, hasNum, hasLowerCase, hasU
   }
 }
 
-function arrChar(low, high) {
+function arrChar(begin, end) {
   var arr = [];
-  for (var i = low; i <= high; i++) {
+  for (var i = begin; i <= end; i++) {
     arr.push(i);
   }
   return arr;
